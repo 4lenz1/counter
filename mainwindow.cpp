@@ -60,7 +60,7 @@ void MainWindow::on_pushButton_clicked()
 
 
 
-
+int pos = 0 ;
     while (!in.atEnd()) {
         // create dict vector
         istringstream iss(in.readLine().toStdString());
@@ -75,12 +75,14 @@ void MainWindow::on_pushButton_clicked()
 
             auto findout =  std::find(dictV.begin() , dictV.end(),substr);
             if(findout == dictV.end()){
+                pos++;
                 dictV.push_back(substr);
-                newstr +=  to_string( (dictV.size() -1 )) + " ";
+
+                // use pos to improve performance instead of dictV.size()
+                newstr +=  to_string( pos -1 ) + " ";
 
             }else{
                 auto i = distance(dictV.begin() , findout);
-
                 newstr  +=  to_string( i )+ " "  ;
             }
 
