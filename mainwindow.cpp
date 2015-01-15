@@ -36,67 +36,39 @@ void MainWindow::on_pushButton_clicked()
                                             tr("txt (*txt*)"));
     
     ui->lineLoad->setText(filePath);
-    
     ui->Progess->setText("counting row....");
     
-    
-    
-    
     QFile file(filePath);
-    if(!file.open(QIODevice::ReadOnly)){
-        QMessageBox::information(0, "error", file.errorString());
-    }
+
     int index = 0 ;
     QTextStream in(&file);
-    QString line ;
-    
-    
-    while (!in.atEnd()) {
-        line = in.readLine();
-        index ++;
-        // qDebug() << line;
-    }
-    // qDebug() << index;
-    totalData = index ;
-    qDebug() << "total data : " << totalData;
-    QString row = QString::number(index);
-    ui->Progess->setText("Row: " + row + "\t\t\t File Size: " +
-                         QString::number( file.size() ) + " bytes" );
-    
+    //    QString line ;
     
 
-    //reset index
-    index = 0 ;
-    
-    file.close();
-    
+    ifstream inFile(filePath.toStdString());
+    int totalRow =  std::count(istreambuf_iterator<char> (inFile),
+                        istreambuf_iterator<char>() , '\n');
+    qDebug () <<  "output c  : " << totalRow ;
+    totalData = totalRow ;
+
+    ui->Progess->setText("Row: " + QString::number( totalRow ) + "\t\t\t File Size: " +
+                         QString::number( file.size() ) + " bytes" );
     if(!file.open(QIODevice::ReadOnly)){
         exit(1);
     }
-    
-    
-    //QVector<QString> vector;
-    
-    //QVector<QString> Qv;
     while (!in.atEnd()) {
         //line = in.readLine();
         //v.push_back( in.readLine().toStdString());
         v.push_back(in.readLine().toStdString());
         //qDebug() << v;
         
-        ui->progressBar->setValue(( ++index *100) / totalData );
+        ui->progressBar->setValue(( ++index *100) / totalRow );
         ui->status->setText("Reading " + QString::number(index) +
-                            "  of " +QString::number( totalData));
+                            "  of " +QString::number( totalRow));
     }
     
     ui->status->setText("Read Completed.  "  + QString::number(index) +
-                        " of " +QString::number( totalData));
-    
-    
-    
-    //Nv = v ;
-    //Qv = QVector::fromStdVector(v) ;
-    //    qDebug() << "vector sort result: ";
+                        " of " +QString::number( totalRow));
     file.close();
     
     
@@ -105,18 +77,11 @@ void MainWindow::on_pushButton_clicked()
                                             tr("txt (*txt*)"));
     ui->lineOut->setText(filePath);
     
-    
     //sort the vector
     ui->status->setText("sorting plz wait");
     qSort(v);
     ui->status->setText("sorted");
-//    ofstream outputFile(filePath.toStdString());
-//    ostream_iterator<string> output_iterator(outputFile, "\n");
-//    copy(  v.begin() , v.end(), output_iterator);
-//    // qCopy(Qv.begin() , Qv.empty() , output_iterator);
-//    QMessageBox::information(this , "saved" , "File Saved !");
 }
-
 
 // start
 // add  column
@@ -141,23 +106,18 @@ void MainWindow::on_pushButton_2_clicked()
         if(v.at(OIndex) == v.at(nextIndex)){
             count ++;
         }else{
-
             countVector.push_back( v.at(OIndex) + " "+ to_string( count ) );
-
-            //qDebug() << QString::fromStdString( countVector.at(OIndex)) ;
             // next time is 1
             count = 1;
             OIndex  =  nextIndex;
             //nextIndex ++;
         }
-        
     }
 
     ofstream outputFile(filePath.toStdString());
     ostream_iterator<string> output_iterator(outputFile, "\n");
     copy(  countVector.begin() , countVector.end(), output_iterator);
-    // qCopy(Qv.begin() , Qv.empty() , output_iterator);
-      ui->status->setText("Done !");
+    ui->status->setText("Done !");
     QMessageBox::information(this , "saved" , "File Saved !");
 
 }
@@ -179,5 +139,5 @@ void MainWindow::on_actionAbout_4lenz1_triggered()
 {
     QMessageBox::about(this , "About this application"
                        ,"pingfallenzone@gmail.com \n"
-                       "only use for the home work for BIG DATA .");
+                        "only use for the home work for BIG DATA .");
 }
