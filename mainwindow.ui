@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>296</width>
-    <height>402</height>
+    <width>489</width>
+    <height>435</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,14 +18,14 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="9" column="0" colspan="2">
+    <item row="10" column="0" colspan="2">
      <widget class="QProgressBar" name="progressBar">
       <property name="value">
        <number>0</number>
       </property>
      </widget>
     </item>
-    <item row="8" column="0" colspan="2">
+    <item row="9" column="0" colspan="2">
      <widget class="QLabel" name="Progess">
       <property name="text">
        <string/>
@@ -64,7 +64,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Start</string>
+       <string>Count</string>
       </property>
      </widget>
     </item>
@@ -84,10 +84,23 @@
       </property>
      </spacer>
     </item>
-    <item row="6" column="0" colspan="2">
+    <item row="7" column="0" colspan="2">
      <widget class="QLabel" name="status">
       <property name="text">
        <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0" colspan="2">
+     <widget class="QPushButton" name="Dic">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="text">
+       <string>dic</string>
       </property>
      </widget>
     </item>
@@ -98,7 +111,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>296</width>
+     <width>489</width>
      <height>21</height>
     </rect>
    </property>

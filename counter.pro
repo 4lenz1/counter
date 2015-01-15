@@ -13,9 +13,11 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    dic.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    dic.h
 
 FORMS    += mainwindow.ui
 CONFIG += c++11

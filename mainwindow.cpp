@@ -10,11 +10,12 @@
 #include <iterator>
 #include <string>
 
+#include <dic.h>
 using namespace std;
 vector<string> v;
 QString filePath;
 QString writeFilePath;
-int totalData ;
+int totalRow;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -46,11 +47,9 @@ void MainWindow::on_pushButton_clicked()
     
 
     ifstream inFile(filePath.toStdString());
-    int totalRow =  std::count(istreambuf_iterator<char> (inFile),
+     totalRow =  std::count(istreambuf_iterator<char> (inFile),
                         istreambuf_iterator<char>() , '\n');
     qDebug () <<  "output c  : " << totalRow ;
-    totalData = totalRow ;
-
     ui->Progess->setText("Row: " + QString::number( totalRow ) + "\t\t\t File Size: " +
                          QString::number( file.size() ) + " bytes" );
     if(!file.open(QIODevice::ReadOnly)){
@@ -102,7 +101,7 @@ void MainWindow::on_pushButton_2_clicked()
     //create a new vector to record node & count
     vector<string> countVector;
 
-    for (int nextIndex = 1; nextIndex  < totalData ; nextIndex  ++){
+    for (int nextIndex = 1; nextIndex  < totalRow ; nextIndex  ++){
         if(v.at(OIndex) == v.at(nextIndex)){
             count ++;
         }else{
@@ -140,4 +139,11 @@ void MainWindow::on_actionAbout_4lenz1_triggered()
     QMessageBox::about(this , "About this application"
                        ,"pingfallenzone@gmail.com \n"
                         "only use for the home work for BIG DATA .");
+}
+
+
+//make dic vector
+void MainWindow::on_Dic_clicked()
+{
+    swap(v , totalRow);
 }
