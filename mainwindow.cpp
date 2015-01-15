@@ -58,8 +58,10 @@ void MainWindow::on_pushButton_clicked()
     // dict Vector
     vector<string> dictV ;
 
-    while (!in.atEnd()) {
 
+
+
+    while (!in.atEnd()) {
         // create dict vector
         istringstream iss(in.readLine().toStdString());
 
@@ -74,13 +76,14 @@ void MainWindow::on_pushButton_clicked()
             auto findout =  std::find(dictV.begin() , dictV.end(),substr);
             if(findout == dictV.end()){
                 dictV.push_back(substr);
-                newstr += dictV.size() + " ";
+                newstr +=  to_string( (dictV.size() -1 )) + " ";
 
             }else{
                 auto i = distance(dictV.begin() , findout);
 
                 newstr  +=  to_string( i )+ " "  ;
             }
+
         } // split for end
 
 
@@ -91,6 +94,9 @@ void MainWindow::on_pushButton_clicked()
         //v.push_back( in.readLine().toStdString());
         qDebug() << "newstr " <<QString::fromStdString( newstr ) ;
         v.push_back(newstr);
+
+        //reset string
+        newstr = "" ;
 
         //v.push_back(in.readLine().toStdString());
         //qDebug() << v;
