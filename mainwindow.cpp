@@ -86,21 +86,10 @@ void MainWindow::on_pushButton_clicked()
 
         } // split for end
 
-
-
-
-
-        //line = in.readLine();
-        //v.push_back( in.readLine().toStdString());
-        qDebug() << "newstr " <<QString::fromStdString( newstr ) ;
         v.push_back(newstr);
 
         //reset string
         newstr = "" ;
-
-        //v.push_back(in.readLine().toStdString());
-        //qDebug() << v;
-
         ui->progressBar->setValue(( ++index *100) / totalRow );
         ui->status->setText("Reading " + QString::number(index) +
                             "  of " +QString::number( totalRow));
