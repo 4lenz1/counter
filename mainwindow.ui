@@ -18,36 +18,28 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="10" column="0" colspan="2">
-     <widget class="QProgressBar" name="progressBar">
-      <property name="value">
-       <number>0</number>
-      </property>
-     </widget>
-    </item>
-    <item row="9" column="0" colspan="2">
-     <widget class="QLabel" name="Progess">
+    <item row="6" column="0" colspan="2">
+     <widget class="QLabel" name="status">
       <property name="text">
        <string/>
       </property>
      </widget>
     </item>
-    <item row="3" column="0">
-     <widget class="QPushButton" name="pushButton_3">
-      <property name="text">
-       <string>Out</string>
+    <item row="4" column="0">
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
       </property>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="QPushButton" name="pushButton">
-      <property name="text">
-       <string>Load</string>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
       </property>
-     </widget>
+     </spacer>
     </item>
-    <item row="0" column="1">
-     <widget class="QLineEdit" name="lineLoad"/>
+    <item row="3" column="1">
+     <widget class="QLineEdit" name="lineOut"/>
     </item>
     <item row="5" column="0" colspan="2">
      <widget class="QPushButton" name="pushButton_2">
@@ -68,39 +60,34 @@
       </property>
      </widget>
     </item>
-    <item row="3" column="1">
-     <widget class="QLineEdit" name="lineOut"/>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="lineLoad"/>
     </item>
-    <item row="4" column="0">
-     <spacer name="verticalSpacer">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
+    <item row="0" column="0">
+     <widget class="QPushButton" name="pushButton">
+      <property name="text">
+       <string>Load</string>
       </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>40</height>
-       </size>
-      </property>
-     </spacer>
+     </widget>
     </item>
-    <item row="7" column="0" colspan="2">
-     <widget class="QLabel" name="status">
+    <item row="3" column="0">
+     <widget class="QPushButton" name="pushButton_3">
+      <property name="text">
+       <string>Out</string>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="0" colspan="2">
+     <widget class="QLabel" name="Progess">
       <property name="text">
        <string/>
       </property>
      </widget>
     </item>
-    <item row="6" column="0" colspan="2">
-     <widget class="QPushButton" name="Dic">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="text">
-       <string>dic</string>
+    <item row="9" column="0" colspan="2">
+     <widget class="QProgressBar" name="progressBar">
+      <property name="value">
+       <number>0</number>
       </property>
      </widget>
     </item>

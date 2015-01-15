@@ -26,7 +26,6 @@ private slots:
 
     void on_actionAbout_4lenz1_triggered();
 
-    void on_Dic_clicked();
 
 private:
     Ui::MainWindow *ui;

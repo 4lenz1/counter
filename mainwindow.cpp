@@ -4,13 +4,11 @@
 #include <QFile>
 #include <QDebug>
 #include <QMessageBox>
-#include <QArrayData>
-
+#include <algorithm>
 #include <fstream>
 #include <iterator>
 #include <string>
-
-#include <dic.h>
+#include <sstream>
 using namespace std;
 vector<string> v;
 QString filePath;
@@ -47,35 +45,71 @@ void MainWindow::on_pushButton_clicked()
     
 
     ifstream inFile(filePath.toStdString());
-     totalRow =  std::count(istreambuf_iterator<char> (inFile),
-                        istreambuf_iterator<char>() , '\n');
+    totalRow =  std::count(istreambuf_iterator<char> (inFile),
+                           istreambuf_iterator<char>() , '\n');
     qDebug () <<  "output c  : " << totalRow ;
+
+
     ui->Progess->setText("Row: " + QString::number( totalRow ) + "\t\t\t File Size: " +
                          QString::number( file.size() ) + " bytes" );
     if(!file.open(QIODevice::ReadOnly)){
         exit(1);
     }
+    // dict Vector
+    vector<string> dictV ;
+
     while (!in.atEnd()) {
+
+        // create dict vector
+        istringstream iss(in.readLine().toStdString());
+
+        //after dict string
+        string newstr ;
+
+        //left side and right side
+        for(int index = 0 ; index < 2 ; index ++){
+            string substr ;
+            iss >>substr ;
+
+            auto findout =  std::find(dictV.begin() , dictV.end(),substr);
+            if(findout == dictV.end()){
+                dictV.push_back(substr);
+                newstr += dictV.size() + " ";
+
+            }else{
+                auto i = distance(dictV.begin() , findout);
+
+                newstr  +=  to_string( i )+ " "  ;
+            }
+        } // split for end
+
+
+
+
+
         //line = in.readLine();
         //v.push_back( in.readLine().toStdString());
-        v.push_back(in.readLine().toStdString());
+        qDebug() << "newstr " <<QString::fromStdString( newstr ) ;
+        v.push_back(newstr);
+
+        //v.push_back(in.readLine().toStdString());
         //qDebug() << v;
-        
+
         ui->progressBar->setValue(( ++index *100) / totalRow );
         ui->status->setText("Reading " + QString::number(index) +
                             "  of " +QString::number( totalRow));
-    }
-    
+    }  // while
+
     ui->status->setText("Read Completed.  "  + QString::number(index) +
                         " of " +QString::number( totalRow));
     file.close();
-    
-    
+
+
     filePath = QFileDialog::getSaveFileName(this, tr("Save File to"),
                                             "",
                                             tr("txt (*txt*)"));
     ui->lineOut->setText(filePath);
-    
+
     //sort the vector
     ui->status->setText("sorting plz wait");
     qSort(v);
@@ -91,10 +125,10 @@ void MainWindow::on_pushButton_2_clicked()
         on_pushButton_clicked();
     }
     ui->status->setText("counting....");
-    
+
     // if equal  , thats 2  not 1
     int count =  1;
-    
+
     // count index
     int OIndex = 0;
 
@@ -105,7 +139,7 @@ void MainWindow::on_pushButton_2_clicked()
         if(v.at(OIndex) == v.at(nextIndex)){
             count ++;
         }else{
-            countVector.push_back( v.at(OIndex) + " "+ to_string( count ) );
+            countVector.push_back( v.at(OIndex)+ to_string( count ) );
             // next time is 1
             count = 1;
             OIndex  =  nextIndex;
@@ -139,11 +173,4 @@ void MainWindow::on_actionAbout_4lenz1_triggered()
     QMessageBox::about(this , "About this application"
                        ,"pingfallenzone@gmail.com \n"
                         "only use for the home work for BIG DATA .");
-}
-
-
-//make dic vector
-void MainWindow::on_Dic_clicked()
-{
-    swap(v , totalRow);
 }
