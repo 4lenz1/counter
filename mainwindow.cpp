@@ -9,11 +9,13 @@
 #include <iterator>
 #include <string>
 #include <sstream>
+#include <iostream>
 using namespace std;
 vector<string> v;
 QString filePath;
 QString writeFilePath;
 int totalRow;
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -52,6 +54,10 @@ void MainWindow::on_pushButton_clicked()
 
     ui->Progess->setText("Row: " + QString::number( totalRow ) + "\t\t\t File Size: " +
                          QString::number( file.size() ) + " bytes" );
+
+    /* if(!fopen(filePath.toUtf8().constData(),"rw")){
+        exit(1);
+    }*/
     if(!file.open(QIODevice::ReadOnly)){
         exit(1);
     }
@@ -60,7 +66,7 @@ void MainWindow::on_pushButton_clicked()
 
 
 
-int pos = 0 ;
+    int pos = 0 ;
     while (!in.atEnd()) {
         // create dict vector
         istringstream iss(in.readLine().toStdString());
@@ -96,7 +102,6 @@ int pos = 0 ;
         ui->status->setText("Reading " + QString::number(index) +
                             "  of " +QString::number( totalRow));
     }  // while
-
     ui->status->setText("Read Completed.  "  + QString::number(index) +
                         " of " +QString::number( totalRow));
     file.close();
@@ -111,6 +116,7 @@ int pos = 0 ;
     ui->status->setText("sorting plz wait");
     qSort(v);
     ui->status->setText("sorted");
+
 }
 
 // start
@@ -144,8 +150,38 @@ void MainWindow::on_pushButton_2_clicked()
         }
     }
 
+    // create scv file
+    int max =  countVector.size() - 1;
+    // qDebug() << max ;
+
+//    vector<string> v2(max , 0);
+//    vector<vector<string> > v2d2(max,v2);
+
+
+
+
+//    std::ofstream out(filePath.toUtf8());
+//       out << "[Map]" << std::endl;
+//       v2d2.resize(max);
+
+//       for(int i = 0; i < max; i++)
+//       {
+//           v2d2[i].resize(max);
+//           for(int j = 0; j < max; j++)
+//           {
+//               char str[20];
+//               sprintf(str, "%d ", v2d2[i][j]);
+//               out << str;
+//           }
+//           out << '\n';
+//       }
+
+
+
+
     ofstream outputFile(filePath.toStdString());
     ostream_iterator<string> output_iterator(outputFile, "\n");
+   //copy( v2d2.begin() , v2d2.end(), output_iterator);
     copy(  countVector.begin() , countVector.end(), output_iterator);
     ui->status->setText("Done !");
     QMessageBox::information(this , "saved" , "File Saved !");
