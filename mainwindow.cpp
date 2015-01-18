@@ -14,8 +14,8 @@
 #include <stdlib.h>
 using namespace std;
 
-string filePath;
-string writeFilePath;
+QString filePath;
+QString writeFilePath;
 int totalRow;
 // dict Vector
 vector<string> dictV ;
@@ -40,19 +40,19 @@ void MainWindow::on_pushButton_clicked()
 {
     filePath = QFileDialog::getOpenFileName(this, tr("Open File"),
                                             "",
-                                            tr("txt (*txt*)")).toStdString();
+                                            tr("txt (*txt*)"));
     
-    ui->lineLoad->setText(QString::fromStdString( filePath));
+    ui->lineLoad->setText(filePath);
     ui->Progess->setText("counting row....");
     
-    QFile file(QString::fromStdString( filePath ));
+    QFile file(filePath);
 
     int index = 0 ;
     QTextStream in(&file);
     //    QString line ;
     
 
-    ifstream inFile(filePath);
+    ifstream inFile(filePath.toStdString());
     totalRow =  std::count(istreambuf_iterator<char> (inFile),
                            istreambuf_iterator<char>() , '\n');
     qDebug () <<  "output c  : " << totalRow ;
@@ -114,8 +114,8 @@ void MainWindow::on_pushButton_clicked()
 
     filePath = QFileDialog::getSaveFileName(this, tr("Save File to"),
                                             "",
-                                            tr("txt (*txt*)")).toStdString();
-    ui->lineOut->setText(QString::fromStdString(filePath));
+                                            tr("txt (*txt*)"));
+    ui->lineOut->setText(filePath);
 
     //sort the vector
     ui->status->setText("sorting plz wait");
@@ -158,10 +158,10 @@ void MainWindow::on_pushButton_2_clicked()
             //nextIndex ++;
         }
     }
-
-
-
     // create scv file
+    int max =  countVector.size() - 1;
+    // qDebug() << max ;
+
 
     //    vector<string> v2(max , 0);
     //    vector<vector<string> > v2d2(max,v2);
@@ -195,15 +195,7 @@ void MainWindow::on_pushButton_2_clicked()
 
 
 
-    ofstream outputFile(filePath);
-
-    int max =  countVector.size() - 1;
-    string array_element = to_string(dictV.size() - 1);
-    string array_detail = array_element + " " + array_element+ " " +  to_string (max) + "\n";
-    qDebug()<<"array detail : " << QString::fromStdString(array_detail ) ;
-
-
-    outputFile <<  array_detail;
+    ofstream outputFile(filePath.toStdString());
     ostream_iterator<string> output_iterator(outputFile, "\n");
     //copy( v2d2.begin() , v2d2.end(), output_iterator);
     copy(  countVector.begin() , countVector.end(), output_iterator);
@@ -216,8 +208,8 @@ void MainWindow::on_pushButton_3_clicked()
 {
     writeFilePath = QFileDialog::getOpenFileName(this, tr("Open File"),
                                                  "",
-                                                 tr("txt (*txt*)")).toStdString();
-    ui->lineOut->setText(QString::fromStdString( writeFilePath));
+                                                 tr("txt (*txt*)"));
+    ui->lineOut->setText(writeFilePath);
 }
 
 void MainWindow::on_actionQt_triggered()
