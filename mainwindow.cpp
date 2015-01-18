@@ -159,9 +159,6 @@ void MainWindow::on_pushButton_2_clicked()
         }
     }
     // create scv file
-    int max =  countVector.size() - 1;
-    // qDebug() << max ;
-
 
     //    vector<string> v2(max , 0);
     //    vector<vector<string> > v2d2(max,v2);
@@ -196,6 +193,13 @@ void MainWindow::on_pushButton_2_clicked()
 
 
     ofstream outputFile(filePath.toStdString());
+
+    int max =  countVector.size() - 1;
+    string array_element = to_string(dictV.size() - 1);
+    string array_detail = array_element + " " + array_element+ " " +  to_string (max) + "\n";
+    qDebug()<<"array detail : " << QString::fromStdString(array_detail ) ;
+
+    outputFile << array_detail ;
     ostream_iterator<string> output_iterator(outputFile, "\n");
     //copy( v2d2.begin() , v2d2.end(), output_iterator);
     copy(  countVector.begin() , countVector.end(), output_iterator);
