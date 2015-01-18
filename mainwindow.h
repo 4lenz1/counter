@@ -2,7 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <vector>
 
+
+using namespace std;
 namespace Ui {
 class MainWindow;
 }

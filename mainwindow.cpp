@@ -10,11 +10,17 @@
 #include <string>
 #include <sstream>
 #include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
 using namespace std;
-vector<string> v;
+
 QString filePath;
 QString writeFilePath;
 int totalRow;
+// dict Vector
+vector<string> dictV ;
+vector<string> v;
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -61,11 +67,10 @@ void MainWindow::on_pushButton_clicked()
     if(!file.open(QIODevice::ReadOnly)){
         exit(1);
     }
-    // dict Vector
-    vector<string> dictV ;
 
 
 
+    //vector<int>* vectors = new vector<int>;
     int pos = 0 ;
     while (!in.atEnd()) {
         // create dict vector
@@ -114,7 +119,11 @@ void MainWindow::on_pushButton_clicked()
 
     //sort the vector
     ui->status->setText("sorting plz wait");
-    qSort(v);
+    //qSort usually slower than sort
+    //qSort(v);
+
+    std::sort(v.begin() , v.end());
+
     ui->status->setText("sorted");
 
 }
@@ -149,39 +158,46 @@ void MainWindow::on_pushButton_2_clicked()
             //nextIndex ++;
         }
     }
-
     // create scv file
     int max =  countVector.size() - 1;
     // qDebug() << max ;
 
-//    vector<string> v2(max , 0);
-//    vector<vector<string> > v2d2(max,v2);
+
+    //    vector<string> v2(max , 0);
+    //    vector<vector<string> > v2d2(max,v2);
+
+    //int **array = (int **)malloc(max * sizeof(int *));
 
 
+//    for(int index = 0 ; index < max ; index++)
+//        array[index] = malloc(max * sizeof(int));
 
+//    for(int i = 0 ; i < max ; i ++)
+//        for(int j = 0 ; j < max ; j++)
+//            qDebug() <<"row: "<< i << "col " << j << " : " << array[i][j];
 
-//    std::ofstream out(filePath.toUtf8());
-//       out << "[Map]" << std::endl;
-//       v2d2.resize(max);
+    //memset(arr, 0, max);
 
-//       for(int i = 0; i < max; i++)
-//       {
-//           v2d2[i].resize(max);
-//           for(int j = 0; j < max; j++)
-//           {
-//               char str[20];
-//               sprintf(str, "%d ", v2d2[i][j]);
-//               out << str;
-//           }
-//           out << '\n';
-//       }
+    //qDebug() << sizeof(arr);
+    //initial
+    //    for (int row = 0 ; row < max ; row++)
+    //        for(int col = 0 ; col < max ; col++){
+    //arr[row][col] = 0 ;
+    // qDebug() <<"row: "<< row << "col " << col << " : " << arr[row][col];
+    //            ui->status->setText("initialing array");
+    //            ui->Progess->setText(row + " of " + max);
+    //            ui->progressBar->setValue( ++row * 100 / max);
+    //}
 
+    //    for(int index = 0 ; index < max ; index ++)
+    //        int row =
+    //        arr[]
 
 
 
     ofstream outputFile(filePath.toStdString());
     ostream_iterator<string> output_iterator(outputFile, "\n");
-   //copy( v2d2.begin() , v2d2.end(), output_iterator);
+    //copy( v2d2.begin() , v2d2.end(), output_iterator);
     copy(  countVector.begin() , countVector.end(), output_iterator);
     ui->status->setText("Done !");
     QMessageBox::information(this , "saved" , "File Saved !");
