@@ -179,7 +179,6 @@ void MainWindow::on_pushButton_2_clicked()
     copy(  countVector.begin() , countVector.end(), output_iterator);
     ui->status->setText("Done !");
     QMessageBox::information(this , "saved" , "File Saved !");
-
 }
 
 void MainWindow::on_pushButton_3_clicked()
