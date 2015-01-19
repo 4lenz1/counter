@@ -75,10 +75,9 @@ void MainWindow::on_pushButton_clicked()
     int pos = 0 ;
     while (!in.atEnd()) {
         // create dict vector
-        string inLine = in.readLine().toStdString();
-        istringstream iss(inLine);
+        istringstream iss(in.readLine().toStdString());
 
-        qDebug() << QString::fromStdString( inLine ) ;
+
         //after dict string
         string newstr ;
 
@@ -129,6 +128,7 @@ void MainWindow::on_pushButton_clicked()
 
     ui->status->setText("sorted");
 
+
 }
 
 // start
@@ -149,56 +149,27 @@ void MainWindow::on_pushButton_2_clicked()
 
     //create a new vector to record node & count
     vector<string> countVector;
-
-    for (int nextIndex = 1; nextIndex  < totalRow ; nextIndex  ++){
+    for (int nextIndex = 1; nextIndex  < v.size() ; nextIndex  ++){
         if(v.at(OIndex) == v.at(nextIndex)){
             count ++;
         }else{
             countVector.push_back( v.at(OIndex)+ to_string( count ) );
-            // next time is 1
+
+            // reset count
             count = 1;
             OIndex  =  nextIndex;
-            //nextIndex ++;
+
         }
     }
+    countVector.push_back( v.at(v.size() -1 )+ to_string( count ) );
+
     // create scv file
-
-    //    vector<string> v2(max , 0);
-    //    vector<vector<string> > v2d2(max,v2);
-
-    //int **array = (int **)malloc(max * sizeof(int *));
-
-
-//    for(int index = 0 ; index < max ; index++)
-//        array[index] = malloc(max * sizeof(int));
-
-//    for(int i = 0 ; i < max ; i ++)
-//        for(int j = 0 ; j < max ; j++)
-//            qDebug() <<"row: "<< i << "col " << j << " : " << array[i][j];
-
-    //memset(arr, 0, max);
-
-    //qDebug() << sizeof(arr);
-    //initial
-    //    for (int row = 0 ; row < max ; row++)
-    //        for(int col = 0 ; col < max ; col++){
-    //arr[row][col] = 0 ;
-    // qDebug() <<"row: "<< row << "col " << col << " : " << arr[row][col];
-    //            ui->status->setText("initialing array");
-    //            ui->Progess->setText(row + " of " + max);
-    //            ui->progressBar->setValue( ++row * 100 / max);
-    //}
-
-    //    for(int index = 0 ; index < max ; index ++)
-    //        int row =
-    //        arr[]
-
 
 
     ofstream outputFile(filePath.toStdString());
 
-    int max =  countVector.size() - 1;
-    string array_element = to_string(dictV.size() - 1);
+    int max =  countVector.size();
+    string array_element = to_string(dictV.size());
     string array_detail = array_element + " " + array_element+ " " +  to_string (max) + "\n";
     qDebug()<<"array detail : " << QString::fromStdString(array_detail ) ;
 
