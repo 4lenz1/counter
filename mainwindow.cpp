@@ -55,6 +55,7 @@ void MainWindow::on_pushButton_clicked()
     ifstream inFile(filePath.toStdString());
     totalRow =  std::count(istreambuf_iterator<char> (inFile),
                            istreambuf_iterator<char>() , '\n');
+    totalRow ++;
     qDebug () <<  "output c  : " << totalRow ;
 
 
@@ -74,8 +75,10 @@ void MainWindow::on_pushButton_clicked()
     int pos = 0 ;
     while (!in.atEnd()) {
         // create dict vector
-        istringstream iss(in.readLine().toStdString());
+        string inLine = in.readLine().toStdString();
+        istringstream iss(inLine);
 
+        qDebug() << QString::fromStdString( inLine ) ;
         //after dict string
         string newstr ;
 
